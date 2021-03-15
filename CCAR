@@ -6,27 +6,27 @@
 // Copyright © 2021 wpfang. All rights reserved.
 //
 #include <iostream>
-#include <string>
+#include <string> 
 using namespace std;
-class CCAR {
-private:
+class CCAR { /**類別名稱*/
+private: /**只在大括號內存取，不可更改，被繼承。*/
 string nickname;
-protected:
-int light;
-int wheel;
-public:
-CCAR() :light(2)
+protected:/**可繼承及大括號內存取*/
+int light;/**data member*/
+int wheel;/**data member*/
+public:/**在甚麼地方都可以使用*/
+CCAR() :light(2)/**建構子給值*/
 {
-wheel = 5;
+wheel = 5;/**等號給值*/
 cout << "car's constructor(wheel=" << wheel << ")" << endl;
 }
-CCAR(string nickname) :light(2)
+CCAR(string nickname) :light(2)/**限制存取*/
 {
 wheel = 5;
 this->nickname = nickname;
 cout << "car's constructor(nickname=" << nickname << ")" << endl;
 }
-~CCAR()
+~CCAR()/**類別結束*/
 {
 cout << "car's destructor" << "(" << nickname << ")" << endl;
 }
@@ -42,29 +42,33 @@ void turn()
 {
 cout << "car's turn" << endl;
 }
-};
+};/**member function*/
 //--------------------------
 class CBMW : public CCAR {
+/*
+ *cbmw有ccae所有功能
+*/
 public:
 CBMW() { light = 4; wheel = 4; cout << "bmw's constructor" << endl; }
 ~CBMW() { cout << "bmw's destructor" << endl; }
-void Abs()
+void Abs()/**新增新功能*/
 {
 cout << "bmw's abs" << endl;
 }
-void start()
+void start()/**overriding*/
 {
 cout << "bmw's start" << endl;
-CCAR::start();//scope operator
-
+CCAR::start();//scope operator/**範圍運算子*/
+/*
+ * startup印出車的啟動
 }
 };
 //--------------------------
 int main(int argc, const char * argv[]) {
 CBMW bmw;
 // bmw.light=3;
-bmw.start();
-bmw.Abs();
+bmw.start(); /**覆蓋(參數相同)*/
+bmw.Abs();/**增加*/
 bmw.stop();
 
 return 0;
